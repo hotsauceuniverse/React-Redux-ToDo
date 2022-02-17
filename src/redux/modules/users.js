@@ -92,13 +92,15 @@ export default function reducer(state = initialState, action) {
   return state
 }
 
+
 // redux-thunk
 export function getUsersThunk() {
-  return async (dispatch) => {
+  return async (dispatch, getState, {history}) => {
     try{
-      dispatch(getUsersStart())
+      console.log(history)
+      dispatch(getUsersStart());
       const res = await axios.get('https://api.github.com/users')
-      dispatch(getUsersSuccess(res.data))
+      dispatch(getUsersSuccess(res.data));
       } catch(error) {
         dispatch(getUsersFail(error))
       }
